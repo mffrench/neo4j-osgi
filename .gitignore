@@ -1,3 +1,4 @@
 atlassian-ide-plugin.xml
 .idea
 neo4j-osgi.iml
+target
