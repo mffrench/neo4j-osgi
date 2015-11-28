@@ -16,7 +16,6 @@ public class Neo4JActivator implements BundleActivator {
     private ServiceRegistration neo4jServiceRegistration;
     private Neo4JManagedService neo4jManagedService = new Neo4JManagedService();
 
-    @Override
     public void start(BundleContext bundleContext) throws Exception {
         Dictionary props = new Hashtable();
         log.debug("Starting net.echinopsii.demo.Neo4JManagedService");
@@ -24,7 +23,6 @@ public class Neo4JActivator implements BundleActivator {
         neo4jServiceRegistration = bundleContext.registerService(ManagedService.class.getName(), neo4jManagedService, props);
     }
 
-    @Override
     public void stop(BundleContext bundleContext) throws Exception {
         if (neo4jServiceRegistration !=null) {
             neo4jManagedService.stop();
@@ -33,5 +31,4 @@ public class Neo4JActivator implements BundleActivator {
             neo4jServiceRegistration=null;
         }
     }
-
 }
