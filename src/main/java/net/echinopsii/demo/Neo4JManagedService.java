@@ -1,19 +1,7 @@
 package net.echinopsii.demo;
 
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseBuilder;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.helpers.Pair;
-import org.neo4j.kernel.GraphDatabaseAPI;
-import org.neo4j.kernel.GraphDatabaseDependencies;
-import org.neo4j.kernel.configuration.Config;
-import org.neo4j.logging.FormattedLogProvider;
-import org.neo4j.logging.Log;
-import org.neo4j.logging.LogProvider;
 import org.neo4j.server.CommunityBootstrapper;
-import org.neo4j.server.WrappingNeoServerBootstrapper;
-import org.neo4j.server.configuration.ServerConfigFactory;
-import org.neo4j.server.configuration.ServerSettings;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.slf4j.Logger;
@@ -30,13 +18,7 @@ public class Neo4JManagedService implements ManagedService {
     private static final String NEO4J_HOME = "neo4j.home";
     private static final String NEO4J_CONFIG_FILE_PATH_PROPS = "neo4j.configfile";
 
-    private GraphDatabaseService graphDb;
-    private WrappingNeoServerBootstrapper webServer;
     private CommunityBootstrapper communityBootstrapper;
-
-    private Log neolog;
-    private Config config;
-    protected GraphDatabaseDependencies dependencies = GraphDatabaseDependencies.newDependencies();
 
     private Thread shutdownHook ;
 
@@ -49,7 +31,7 @@ public class Neo4JManagedService implements ManagedService {
         log.debug("updated : {}", new Object[]{(dictionary == null) ? "null conf" : dictionary.toString()});
         if (dictionary!=null) {
             String neo4jHome = (String) dictionary.get(NEO4J_HOME);
-            String configFilePath = dictionary.get(NEO4J_HOME) + File.separator + dictionary.get(NEO4J_CONFIG_FILE_PATH_PROPS);
+            String configFilePath = neo4jHome + File.separator + dictionary.get(NEO4J_CONFIG_FILE_PATH_PROPS);
             log.debug("Neo4J server config file path: {}", new Object[]{configFilePath});
 
             log.debug("Create neo4j server");
